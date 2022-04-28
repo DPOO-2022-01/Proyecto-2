@@ -23,23 +23,20 @@ public class FramePrincipal extends JFrame {
 		setTitle("Project Manager");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		iniciarComponentes();
-		
 	}
-	
+
 	private void iniciarComponentes() {
-		pTipoActividad = new PTipoActividad();
-		pTipoActividad.setBackground(Color.cyan);//Solo pa ver si funciona jsjjs, el color es horrible.
 		PBotones botones = new PBotones();
 		lblTitulo = new JLabel ("¿Qué harás hoy en tu proyecto?");
 		lblTitulo.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));
 		
 		add(botones, BorderLayout.WEST);
-		add(pTipoActividad, BorderLayout.CENTER);
 		add(lblTitulo,BorderLayout.NORTH);
 		
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 	public static void main(String[] args) {
 		FramePrincipal framePrincipal = new FramePrincipal();

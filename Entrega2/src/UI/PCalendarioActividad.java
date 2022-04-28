@@ -2,7 +2,7 @@
 // vim:set fileencoding=utf-8:
 // https://ateraimemo.com/Swing/CalendarHeatmapList.html
 
-package CalendarioActividades;
+package UI;
 
 import java.awt.*;
 import java.time.DayOfWeek;
@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
 import javax.swing.*;
 
-public final class FPrincipal extends JPanel {
+public final class PCalendarioActividad extends JPanel {
   public static final Dimension CELLSZ = new Dimension(10, 10);
   public final LocalDate currentLocalDate = LocalDate.now();
   public final JList<Contribution> weekList = new JList<Contribution>(new CalendarViewListModel(currentLocalDate)) {
@@ -43,7 +43,7 @@ public final class FPrincipal extends JPanel {
       new ColorIcon(color.darker()),
       new ColorIcon(color.darker().darker()));
 
-  private FPrincipal() {
+  private PCalendarioActividad() {
     super(new BorderLayout());
     Font font = weekList.getFont().deriveFont(CELLSZ.height - 1f);
 
@@ -158,6 +158,7 @@ public final class FPrincipal extends JPanel {
     });
   }
 
+ //Este es el frame por defecto para mostrar el panel, se debe simplemente iniciarlo en FramePrincipal.
   public static void createAndShowGui() {
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -166,7 +167,7 @@ public final class FPrincipal extends JPanel {
     }
     JFrame frame = new JFrame("CalendarHeatmapList");
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    frame.getContentPane().add(new FPrincipal());
+    frame.getContentPane().add(new PCalendarioActividad());
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
@@ -225,11 +226,10 @@ class ColorIcon implements Icon {
   }
 
   @Override public int getIconWidth() {
-    return FPrincipal.CELLSZ.width - 2;
+    return PCalendarioActividad.CELLSZ.width - 2;
   }
 
   @Override public int getIconHeight() {
-    return FPrincipal.CELLSZ.height - 2;
+    return PCalendarioActividad.CELLSZ.height - 2;
   }
 }
-
