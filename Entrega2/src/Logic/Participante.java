@@ -1,6 +1,20 @@
 package Logic;
 
 public class Participante {
+	
+	//Atributos
+	
+		private String nombre;
+		private String email;
+	
+		
+	//Constructor
+		public Participante(String nombre, String email) {
+				this.nombre = nombre;
+				this.email = email;
+				
+		
+			}
 
     //Atributos
     private String nombre;

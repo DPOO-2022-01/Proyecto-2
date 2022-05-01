@@ -2,6 +2,15 @@ package Logic;
 
 
 public class Actividad {
+	//Atributos
+	
+		private String titulo;
+		private String descripcion;
+		private TipoActividad tipo;
+		private String fecharealizacion;
+		private String horainicio;
+		private String horafin;
+		private Participante participante;
 
     //Atributos
     private String titulo;

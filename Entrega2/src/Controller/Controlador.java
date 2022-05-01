@@ -11,6 +11,45 @@ import Logic.TipoActividad;
 
 
 public class Controlador {
+	private ArrayList<Proyecto>proyectos;
+	private ArrayList<Participante>participantes;
+	private Cronometro timer = new Cronometro();
+	
+	public Controlador() {
+		this.proyectos =new ArrayList<>();
+		this.participantes =new ArrayList<>();
+	}
+	
+	//Todas estas funciones sirven como mediador entre la consola y la l�gica. Esto es para un menos acoplamiento
+	public Participante crearParticipante(String nombre,String correo ) {
+		Participante participante = new Participante(nombre,correo);
+		participantes.add(participante);
+		return participante;
+		
+	}
+	
+	public Proyecto crearProyecto(String nombreP, String descripcion, String fechaInicio, String fechaFinalizacion,Participante propietario) 
+	{
+		Proyecto proyecto = new Proyecto(nombreP, descripcion, fechaInicio, fechaFinalizacion, propietario);
+		proyecto.agregarParticipante(propietario);
+		proyectos.add(proyecto);
+		
+		return proyecto;
+	}
+	
+	public Actividad crearActividad(String titulo, String descripcion, TipoActividad tipo, String fecharealizacion,String horainicio,String horafin, Participante participante, Proyecto proyecto)
+	{
+		Actividad actividad = new Actividad(titulo, descripcion, tipo, fecharealizacion, horainicio, horafin, participante);
+		proyecto.agregarActividad(actividad);
+		return actividad;
+		
+	}
+	
+	public void agregarParticipanteProyecto(int idProyecto, int idParticipante) {
+		Participante participante = obtenerParticipante(idParticipante);
+		Proyecto proyecto = obtenerProyecto(idProyecto);
+		proyecto.agregarParticipante(participante);
+	}
 
     //Atributos
     //private ArrayList<Proyecto> proyectos;
