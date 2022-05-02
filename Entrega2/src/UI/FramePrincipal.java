@@ -31,7 +31,9 @@ public class FramePrincipal extends JFrame {
 		lblTitulo = new JLabel ("¿Qué harás hoy en tu proyecto?");
 		lblTitulo.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));
 		pCalendario = new PCalendarioActividad();
+		pTipoActividad = new PTipoActividad();
 		this.add(pCalendario, BorderLayout.CENTER);
+		//this.add(pTipoActividad, BorderLayout.CENTER);
 		
 		add(botones, BorderLayout.WEST);
 		add(lblTitulo,BorderLayout.NORTH);
