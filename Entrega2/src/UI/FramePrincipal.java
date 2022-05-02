@@ -13,6 +13,7 @@ public class FramePrincipal extends JFrame {
 	//Atributos
 	JLabel lblTitulo;
 	PTipoActividad pTipoActividad;
+	PCalendarioActividad pCalendario;
 	
 	//Constructor
 	public FramePrincipal() {
@@ -29,6 +30,8 @@ public class FramePrincipal extends JFrame {
 		PBotones botones = new PBotones();
 		lblTitulo = new JLabel ("¿Qué harás hoy en tu proyecto?");
 		lblTitulo.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));
+		pCalendario = new PCalendarioActividad();
+		this.add(pCalendario, BorderLayout.CENTER);
 		
 		add(botones, BorderLayout.WEST);
 		add(lblTitulo,BorderLayout.NORTH);

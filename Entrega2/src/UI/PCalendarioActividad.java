@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 import javax.swing.*;
 
 public final class PCalendarioActividad extends JPanel {
-  public static final Dimension CELLSZ = new Dimension(10, 10);
+  public static final Dimension CELLSZ = new Dimension(25, 25);
   public final LocalDate currentLocalDate = LocalDate.now();
   public final JList<Contribution> weekList = new JList<Contribution>(new CalendarViewListModel(currentLocalDate)) {
     @Override public void updateUI() {
@@ -35,26 +35,26 @@ public final class PCalendarioActividad extends JPanel {
       setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
     }
   };
-  public final Color color = new Color(50, 200, 50);
+  public final Color color = new Color(88, 144, 234);
   public final List<Icon> activityIcons = Arrays.asList(
-      new ColorIcon(new Color(200, 200, 200)),
+      new ColorIcon(new Color(216, 225, 232)),
       new ColorIcon(color.brighter()),
       new ColorIcon(color),
       new ColorIcon(color.darker()),
       new ColorIcon(color.darker().darker()));
 
-  private PCalendarioActividad() {
+  PCalendarioActividad() {
     super(new BorderLayout());
     Font font = weekList.getFont().deriveFont(CELLSZ.height - 1f);
 
     Box box = Box.createHorizontalBox();
-    box.add(makeLabel("Less", font));
+    box.add(makeLabel("Menos", font));
     box.add(Box.createHorizontalStrut(2));
     activityIcons.forEach(icon -> {
       box.add(new JLabel(icon));
       box.add(Box.createHorizontalStrut(2));
     });
-    box.add(makeLabel("More", font));
+    box.add(makeLabel("Más", font));
 
     JPanel p = new JPanel(new GridBagLayout());
     p.setBorder(BorderFactory.createEmptyBorder(10, 2, 10, 2));
@@ -69,9 +69,8 @@ public final class PCalendarioActividad extends JPanel {
     p.add(box, c);
 
     add(p, BorderLayout.NORTH);
-    add(new JScrollPane(new JTextArea()));
     setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-    setPreferredSize(new Dimension(320, 240));
+    setPreferredSize(new Dimension(400, 300));
   }
 
   private static Component makeWeekCalendar(JList<Contribution> weekList, Font font) {
@@ -137,7 +136,7 @@ public final class PCalendarioActividad extends JPanel {
       } else {
         l.setIcon(activityIcons.get(value.activity));
         String actTxt = value.activity == 0 ? "No" : Objects.toString(value.activity);
-        l.setToolTipText(actTxt + " contribution on " + value.date.toString());
+        l.setToolTipText(actTxt + " contribuyó el " + value.date.toString());
       }
       return l;
     }
@@ -150,14 +149,14 @@ public final class PCalendarioActividad extends JPanel {
     return label;
   }
 
-  public static void main(String... args) {
+  /*public static void main(String... args) {
     EventQueue.invokeLater(new Runnable() {
       @Override public void run() {
         createAndShowGui();
       }
     });
   }
-
+  
  //Este es el frame por defecto para mostrar el panel, se debe simplemente iniciarlo en FramePrincipal.
   public static void createAndShowGui() {
     try {
@@ -171,7 +170,7 @@ public final class PCalendarioActividad extends JPanel {
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
-  }
+  }*/
 }
 
 class Contribution {
@@ -197,6 +196,7 @@ class CalendarViewListModel extends AbstractListModel<Contribution> {
     startDate = date.minusWeeks(WEEK_VIEW - 1).minusDays(dow);
     Random rnd = new Random();
     int size = DayOfWeek.values().length * WEEK_VIEW;
+    //Aquí se pintan los valores random para las actividades
     IntStream.range(0, size).forEach(i -> contributionActivity.put(startDate.plusDays(i), rnd.nextInt(5)));
   }
 
