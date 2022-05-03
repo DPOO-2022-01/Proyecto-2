@@ -104,6 +104,10 @@ public class VentanaPrincipal extends JFrame {
         return borderLayout;
     }
     
+    public String getNombreParticipante() {
+    	return panelCuenta.getNombreParticipante();
+    }
+    
     public void Salida() {
     	panelCalendario.setVisible(false);
     	panelSuperior.setVisible(false);

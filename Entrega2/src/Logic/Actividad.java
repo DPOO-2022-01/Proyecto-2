@@ -3,34 +3,25 @@ package Logic;
 
 public class Actividad {
 	//Atributos
-	
-		private String titulo;
-		private String descripcion;
-		private TipoActividad tipo;
-		private String fecharealizacion;
-		private String horainicio;
-		private String horafin;
-		private Participante participante;
 
-    //Atributos
-    private String titulo;
-    private String descripcion;
-    private TipoActividad tipo;
-    private String fecharealizacion;
-    private String horainicio;
-    private String horafin;
-    private Participante participante;
+	private String titulo;
+	private String descripcion;
+	private TipoActividad tipo;
+	private String fecharealizacion;
+	private String horainicio;
+	private String horafin;
+	private Participante participante;
 
-    //Constructor
-    public Actividad(String titulo, String descripcion, TipoActividad tipo, String fecharealizacion, String horainicio, String horafin, Participante participante) {
-        super();
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.tipo = tipo;
-        this.fecharealizacion = fecharealizacion;
-        this.horainicio = horainicio;
-        this.horafin = horafin;
-        this.participante = participante;
+	//Constructor
+	public Actividad(String titulo, String descripcion, TipoActividad tipo, String fecharealizacion, String horainicio, String horafin, Participante participante) {
+		super();
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.tipo = tipo;
+		this.fecharealizacion = fecharealizacion;
+		this.horainicio = horainicio;
+		this.horafin = horafin;
+		this.participante = participante;
     }
 
 

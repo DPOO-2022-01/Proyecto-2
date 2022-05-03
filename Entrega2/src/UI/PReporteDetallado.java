@@ -16,9 +16,9 @@ import Logic.TipoActividad;
 
 public class PReporteDetallado extends JPanel {
 	JLabel tituloPanel;
-	FramePrincipal framePrincipal;
+	VentanaPrincipal framePrincipal;
 	
-	public PReporteDetallado(FramePrincipal framePrincipal) {
+	public PReporteDetallado(VentanaPrincipal framePrincipal) {
 		this.framePrincipal = framePrincipal;
 		tituloPanel = new JLabel("Reporte específico de Actividades");
 		tituloPanel.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 40));
@@ -34,7 +34,7 @@ public class PReporteDetallado extends JPanel {
 		JList<String> tiemposParticipante = new JList<>();
 		Controlador controlador = framePrincipal.getControlador();
 		
-		for (Proyecto proyecto: controlador.getProyectos()) {
+		Proyecto proyecto = controlador.getProyecto();
 			if (proyecto.getNombre().equals(framePrincipal.getNombreProyecto())) {
 				for (Participante participante: proyecto.getParticipantes()) {
 					int i = 0;
@@ -74,5 +74,4 @@ public class PReporteDetallado extends JPanel {
 				}
 			}
 		}
-	}
 }

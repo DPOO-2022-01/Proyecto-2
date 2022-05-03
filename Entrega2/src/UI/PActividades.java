@@ -32,7 +32,7 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 	private JPanel panelEditar, panelNueva, panelPrincipal, panelCronometro;
 	private JLabel nombreTitulo;
 	private JButton btnNueva, btnEditar;
-	private FramePrincipal framePrincipal;
+	private VentanaPrincipal framePrincipal;
 	private String tiempo;
 	private Controlador controlador;
 	private JTextField fieldTitulo, fieldDescripcion, fieldFecha, fieldHora;
@@ -40,7 +40,7 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 	
 	JLabel temporalTiempo = new JLabel();
 	
-	public PActividades(FramePrincipal framePrincipal) {
+	public PActividades(VentanaPrincipal framePrincipal) {
 		this.framePrincipal = framePrincipal;
 		this.controlador = framePrincipal.getControlador();
 		fieldTitulo = new JTextField();
@@ -187,14 +187,13 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for (Proyecto proyecto: controlador.getProyectos()) {
-					for(Actividad actividad: proyecto.getActividades()) {
-						if (actividad.getTitulo().equals(fieldTituloModificar.getText())) {
-							actividad.setFecharealizacion(fieldFechaNueva.getText());
-							String[] horaCompleta = fieldHoraNueva.getText().split("-");
-							actividad.setHorainicio(horaCompleta[0]);
-							actividad.setHorafin(horaCompleta[1]);
-						}
+				Proyecto proyecto = controlador.getProyecto();
+				for(Actividad actividad: proyecto.getActividades()) {
+					if (actividad.getTitulo().equals(fieldTituloModificar.getText())) {
+						actividad.setFecharealizacion(fieldFechaNueva.getText());
+						String[] horaCompleta = fieldHoraNueva.getText().split("-");
+						actividad.setHorainicio(horaCompleta[0]);
+						actividad.setHorafin(horaCompleta[1]);
 					}
 				}
 			}
@@ -269,7 +268,7 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 						fieldFecha.getText(),
 						fieldHora.getText(),
 						fieldHoraFin.getText(),
-						participante,
+						framePrincipal.getNombreParticipante(),
 						proyecto);
 			}
 		});

@@ -13,12 +13,11 @@ public class PCrearProyecto extends JPanel {
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
-    private JTextField textNombre;
-    private JTextField text;
-    private JTextField text1;
-    private JTextField text2;
-    private JTextField text3;
-    private JButton agregarParticipante;
+    private JTextField nombreProyecto;
+    private JTextField descripcionProyecto;
+    private JTextField fechaProyecto;
+    private JTextField tiposActividad;
+    private JButton btnCrearProyecto;
     private JScrollPane scrollBar;
 
     private Font principalFont;
@@ -36,8 +35,8 @@ public class PCrearProyecto extends JPanel {
         principalFont = new Font("Open Sans ExtraBold", Font.BOLD, 24);
         secondaryFont = new Font("Bahnschrift Light", Font.PLAIN, 14);
 
-        agregarParticipante = new JButton("Crear proyecto");
-        agregarParticipante.setPreferredSize(new Dimension(200, 30));
+        btnCrearProyecto = new JButton("Crear proyecto");
+        btnCrearProyecto.setPreferredSize(new Dimension(200, 30));
         addFncButton();
 
         //agregarDescripcion.setHorizontalAlignment(SwingConstants.LEFT);
@@ -76,31 +75,33 @@ public class PCrearProyecto extends JPanel {
         label3.setOpaque(true);
         label3.setFont(secondaryFont);
         
+        //textfield nombreproyecto
+        nombreProyecto=new JTextField();
+        nombreProyecto.setPreferredSize(new Dimension(50,20));
+        nombreProyecto.setBackground(Color.WHITE);
+        nombreProyecto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        nombreProyecto.setOpaque(true);
         
+        //textfield descripcionproyecto
+        descripcionProyecto=new JTextField();
+        descripcionProyecto.setPreferredSize(new Dimension(50,20));
+        descripcionProyecto.setBackground(Color.WHITE);
+        descripcionProyecto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        descripcionProyecto.setOpaque(true);
         
-        text=new JTextField();
-        text.setPreferredSize(new Dimension(50,20));
-        text.setBackground(Color.WHITE);
-        text.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        text.setOpaque(true);
+        //textfield fecha
+        fechaProyecto=new JTextField();
+        fechaProyecto.setPreferredSize(new Dimension(50,20));
+        fechaProyecto.setBackground(Color.WHITE);
+        fechaProyecto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        fechaProyecto.setOpaque(true);
         
-        text1=new JTextField();
-        text1.setPreferredSize(new Dimension(50,20));
-        text1.setBackground(Color.WHITE);
-        text1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        text1.setOpaque(true);
-        
-        text2=new JTextField();
-        text2.setPreferredSize(new Dimension(50,20));
-        text2.setBackground(Color.WHITE);
-        text2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        text2.setOpaque(true);
-        
-        text3=new JTextField();
-        text3.setPreferredSize(new Dimension(50,20));
-        text3.setBackground(Color.WHITE);
-        text3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        text3.setOpaque(true);
+        //textfield tiposActividad
+        tiposActividad=new JTextField();
+        tiposActividad.setPreferredSize(new Dimension(50,20));
+        tiposActividad.setBackground(Color.WHITE);
+        tiposActividad.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        tiposActividad.setOpaque(true);
         
         
         
@@ -121,23 +122,7 @@ public class PCrearProyecto extends JPanel {
         
         add(horizontalBox);
         
-       // Box horizontalB = Box.createHorizontalBox();
-        //horizontalB.setPreferredSize(new Dimension(300, 20));
-        //horizontalB.setBackground(Color.white);
-        //horizontalB.setOpaque(true);
-        
-        //horizontalB.add(Box.createRigidArea(new Dimension(20, 0)));
-        //horizontalB.add(label);
-        //horizontalB.add(text);
-        
-        
-        
 
-        //add(horizontalB);
-        //add(label);
-        
-        //add(text);
-        
         
         
         
@@ -146,19 +131,16 @@ public class PCrearProyecto extends JPanel {
         horizontal.setBackground(Color.white);
         horizontal.setOpaque(true);
         horizontal.add(label);
-        horizontal.add(text);
+        horizontal.add(nombreProyecto);
         horizontal.add(label1);
-        horizontal.add(text1);
+        horizontal.add(descripcionProyecto);
         horizontal.add(label2);
-        horizontal.add(text2);
+        horizontal.add(fechaProyecto);
         horizontal.add(label3);
-        horizontal.add(text3);
+        horizontal.add(tiposActividad);
         
-       
-        //add(label1);
-        //add(text);
         add(horizontal);
-        add(agregarParticipante);
+        add(btnCrearProyecto);
         
         
         
@@ -173,12 +155,13 @@ public class PCrearProyecto extends JPanel {
     //}
 
     private void addFncButton() {
-        agregarParticipante.addActionListener(new ActionListener() {
+        btnCrearProyecto.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            	padre.begin();
-                
+            	String[] tiposAct = tiposActividad.getText().split(",");
+            	padre.getControlador().crearProyecto(nombreProyecto.getText(), descripcionProyecto.getText(), fechaProyecto.getText(), "");
+            	padre.getControlador().getProyecto();
             }
 
         });
