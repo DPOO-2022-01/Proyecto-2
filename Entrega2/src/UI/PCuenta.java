@@ -18,6 +18,9 @@ public class PCuenta extends JPanel{
 	private JPanel panelPrincipal;
 	private JLabel nombrePrincipal;
 	private FramePrincipal framePrincipal;
+	private JTextField fieldNombre;
+	private JTextField fieldCorreo;
+	private JTextField fieldProyecto;
 	
 	
 	public PCuenta() {
@@ -35,15 +38,15 @@ public class PCuenta extends JPanel{
 		JPanel panelSi = new JPanel();
 		JPanel panelContenido = new JPanel();
 		JLabel ingresarNombre = new JLabel("Ingresa tu nombre completo: ");
-		JTextField fieldNombre = new JTextField();
+		fieldNombre = new JTextField();
 		JLabel ingresarCorreo = new JLabel("Ingresa tu correo: ");
-		JTextField fieldCorreo = new JTextField();
+		fieldCorreo = new JTextField();
 		JLabel ingresarProyecto = new JLabel("¿Tienes ya un proyecto?");
 		JButton btnSiProyecto = new JButton("Sí");
 		JButton btnNoProyecto = new JButton("No");
 		JButton btnEntrar = new JButton("Entrar");
 		JLabel SiProyecto = new JLabel("Ingresa el nombre de tu proyecto:");
-		JTextField fieldProyecto = new JTextField();
+		fieldProyecto = new JTextField();
 		
 		panelSuperior.setLayout(new BorderLayout());
 		panelSi.setLayout(new BoxLayout(panelSi, BoxLayout.Y_AXIS));
@@ -80,8 +83,10 @@ public class PCuenta extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				panelPrincipal.setVisible(false);
-				framePrincipal.setVisible(true);
+				panelPrincipal.remove(panelPrincipal.getBorderLayout().getLayoutComponent(BorderLayout.CENTER));
+				panelPrincipal.add(BorderLayout.CENTER, new VentanaPrincipal(panelPrincipal));
+				panelPrincipal.revalidate();
+				panelPrincipal.repaint();
 			
 			}
 		};
@@ -93,6 +98,21 @@ public class PCuenta extends JPanel{
 		panelPrincipal.add(panelContenido, BorderLayout.NORTH);
 		this.add(panelPrincipal, BorderLayout.CENTER);
 		
+		
+	}
+	
+	public String getNombreParticipante() {
+		return fieldNombre.getText();
+		
+	}
+	
+	public String getCorreoParticipante() {
+		return fieldCorreo.getText();
+		
+	}
+	
+	public String getProyectoParticipante() {
+		return fieldCorreo.getText();
 		
 	}
 
