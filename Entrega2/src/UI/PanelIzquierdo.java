@@ -109,8 +109,27 @@ public class PanelIzquierdo extends JPanel {
                 padre.add(BorderLayout.CENTER, new PanelListaParticipantes(padre));
                 padre.revalidate();
                 padre.repaint();
+          
             }
         });
+        
+        tiposDeActividad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                padre.remove(padre.getBorderLayout().getLayoutComponent(BorderLayout.CENTER));
+                padre.add(BorderLayout.CENTER, new PTipoActividad());
+                padre.revalidate();
+                padre.repaint();
+            }
+        });
+        
+        salir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                padre.Salida();
+            }
+        });
+                
     }
 }
 

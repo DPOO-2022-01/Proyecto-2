@@ -14,19 +14,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class PCuenta extends JPanel{
-
+	
+	private VentanaPrincipal padre;
 	private JPanel panelPrincipal;
 	private JLabel nombrePrincipal;
-	private FramePrincipal framePrincipal;
 	private JTextField fieldNombre;
 	private JTextField fieldCorreo;
 	private JTextField fieldProyecto;
+	private PCrearProyecto pCrearProyecto;
 	
 	
-	public PCuenta() {
+	public PCuenta(VentanaPrincipal padre) {
 		setLayout(new BorderLayout());
 		nombrePrincipal = new JLabel("Titulo");
 		panelPrincipal = new JPanel();
+		this.padre = padre;
 		iniciarPanelCuenta();
 	}
 
@@ -79,27 +81,41 @@ public class PCuenta extends JPanel{
 			}
 		};
 		
+		ActionListener botonNo = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				panelPrincipal.setVisible(false);
+				iniciarPanelCrearProyecto();
+				
+			}
+		};
+		
 		ActionListener botonEntrar = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				panelPrincipal.remove(panelPrincipal.getBorderLayout().getLayoutComponent(BorderLayout.CENTER));
-				panelPrincipal.add(BorderLayout.CENTER, new VentanaPrincipal(panelPrincipal));
-				panelPrincipal.revalidate();
-				panelPrincipal.repaint();
+				panelPrincipal.setVisible(false);
+				padre.begin();
 			
 			}
 		};
 		
 		btnSiProyecto.addActionListener(botonSi);
 		btnEntrar.addActionListener(botonEntrar);
+		btnNoProyecto.addActionListener(botonNo);
 		
 		
 		panelPrincipal.add(panelContenido, BorderLayout.NORTH);
 		this.add(panelPrincipal, BorderLayout.CENTER);
 		
-		
 	}
+	
+	public void iniciarPanelCrearProyecto() {
+		pCrearProyecto = new PCrearProyecto(padre);
+		add(pCrearProyecto, BorderLayout.CENTER);
+	}
+	
 	
 	public String getNombreParticipante() {
 		return fieldNombre.getText();

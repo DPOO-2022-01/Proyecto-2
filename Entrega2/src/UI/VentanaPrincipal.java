@@ -11,10 +11,12 @@ public class VentanaPrincipal extends JFrame {
     private BorderLayout borderLayout;
 
     private PanelDescripcion panelDescripcion;
+    private PCalendarioActividad panelCalendario;
     private PanelListaParticipantes panelListaParticipantes;
     private PanelCrearParticipante panelCrearParticipante;
     private PanelIzquierdo panelIzquierdo;
     private PanelSuperior panelSuperior;
+    private PCuenta panelCuenta;
 
     public VentanaPrincipal(){
         super("Project Manager");
@@ -27,20 +29,25 @@ public class VentanaPrincipal extends JFrame {
 
         //Inicia el mediador a funcionar
         controller = new Controlador();
-        begin();
+        iniciarPanelCuenta();
 
     }
 
-    private void begin() {
-        panelDescripcion = new PanelDescripcion(this);
+    public void begin() {
+    	panelCalendario = new PCalendarioActividad();
         panelSuperior = new PanelSuperior(this);
-        panelListaParticipantes = new PanelListaParticipantes(this);
-        panelCrearParticipante = new PanelCrearParticipante(this);
         panelIzquierdo = new PanelIzquierdo(this);
         
-        add(panelDescripcion, BorderLayout.CENTER);
         add(panelIzquierdo, BorderLayout.WEST);
         add(panelSuperior, BorderLayout.NORTH);
+        add(panelCalendario, BorderLayout.CENTER);
+        setVisible(true);
+        panelCuenta.setVisible(false);
+    }
+    
+    public void iniciarPanelCuenta() {
+    	panelCuenta = new PCuenta(this);
+    	add(panelCuenta, BorderLayout.CENTER);
         setVisible(true);
     }
 
@@ -95,6 +102,13 @@ public class VentanaPrincipal extends JFrame {
 
     public BorderLayout getBorderLayout() {
         return borderLayout;
+    }
+    
+    public void Salida() {
+    	panelCalendario.setVisible(false);
+    	panelSuperior.setVisible(false);
+    	panelIzquierdo.setVisible(false);
+    	iniciarPanelCuenta();
     }
 
 }
