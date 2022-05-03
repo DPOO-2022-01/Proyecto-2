@@ -3,6 +3,8 @@ package UI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ public class PCuenta extends JPanel{
 
 	private JPanel panelPrincipal;
 	private JLabel nombrePrincipal;
+	private FramePrincipal framePrincipal;
 	
 	
 	public PCuenta() {
@@ -28,7 +31,8 @@ public class PCuenta extends JPanel{
 		panelPrincipal.setSize(this.getWidth(), this.getHeight());
 		Color color = new Color(88, 144, 234);
 		JPanel panelSuperior = new JPanel();
-		JPanel panelInferior = new JPanel();
+		JPanel panelOpcion = new JPanel();
+		JPanel panelSi = new JPanel();
 		JPanel panelContenido = new JPanel();
 		JLabel ingresarNombre = new JLabel("Ingresa tu nombre completo: ");
 		JTextField fieldNombre = new JTextField();
@@ -37,25 +41,56 @@ public class PCuenta extends JPanel{
 		JLabel ingresarProyecto = new JLabel("¿Tienes ya un proyecto?");
 		JButton btnSiProyecto = new JButton("Sí");
 		JButton btnNoProyecto = new JButton("No");
+		JButton btnEntrar = new JButton("Entrar");
+		JLabel SiProyecto = new JLabel("Ingresa el nombre de tu proyecto:");
+		JTextField fieldProyecto = new JTextField();
 		
 		panelSuperior.setLayout(new BorderLayout());
+		panelSi.setLayout(new BoxLayout(panelSi, BoxLayout.Y_AXIS));
 		nombrePrincipal.setText("Ingresa a ProyectManajer");
 		nombrePrincipal.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));
 		panelSuperior.add(nombrePrincipal);
-		panelInferior.setLayout(new BorderLayout());
-		panelInferior.add(btnSiProyecto, BorderLayout.WEST);
-		panelInferior.add(btnNoProyecto, BorderLayout.EAST);
+		panelSi.add(SiProyecto);
+		panelSi.add(fieldProyecto);
+		panelSi.add(btnEntrar);
+		panelSi.setVisible(false);
+		panelOpcion.setLayout(new BorderLayout());
+		panelOpcion.add(btnSiProyecto, BorderLayout.WEST);
+		panelOpcion.add(btnNoProyecto, BorderLayout.EAST);
 		panelContenido.setLayout(new BoxLayout(panelContenido, BoxLayout.Y_AXIS));
 		
-		panelContenido.add(panelSuperior, BorderLayout.NORTH);
+		panelContenido.add(panelSuperior);
 		panelContenido.add(ingresarNombre);
 		panelContenido.add(fieldNombre);
 		panelContenido.add(ingresarCorreo);
 		panelContenido.add(fieldCorreo);
 		panelContenido.add(ingresarProyecto);
-		panelContenido.add(panelInferior);
+		panelContenido.add(panelOpcion);
+		panelContenido.add(panelSi);
 		
-		panelPrincipal.add(panelContenido);
+		ActionListener botonSi = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				panelSi.setVisible(true);
+			}
+		};
+		
+		ActionListener botonEntrar = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				panelPrincipal.setVisible(false);
+				framePrincipal.setVisible(true);
+			
+			}
+		};
+		
+		btnSiProyecto.addActionListener(botonSi);
+		btnEntrar.addActionListener(botonEntrar);
+		
+		
+		panelPrincipal.add(panelContenido, BorderLayout.NORTH);
 		this.add(panelPrincipal, BorderLayout.CENTER);
 		
 		
