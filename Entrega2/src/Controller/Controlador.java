@@ -1,26 +1,25 @@
 package Controller;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
-import Logic.Cronometro;
+import Logic.Actividad;
 import Logic.Participante;
 import Logic.Proyecto;
-import Logic.Actividad;
 import Logic.TipoActividad;
-
-
+import Logic.Cronometro;
 
 public class Controlador {
-	private ArrayList<Proyecto>proyectos;
+	private Proyecto proyecto;
 	private ArrayList<Participante>participantes;
 	private Cronometro timer = new Cronometro();
 	
 	public Controlador() {
-		this.proyectos =new ArrayList<>();
+		this.proyecto =new Proyecto();
 		this.participantes =new ArrayList<>();
 	}
 	
-	//Todas estas funciones sirven como mediador entre la consola y la lï¿½gica. Esto es para un menos acoplamiento
+	//Todas estas funciones sirven como mediador entre la consola y la lógica. Esto es para un menos acoplamiento
 	public Participante crearParticipante(String nombre,String correo ) {
 		Participante participante = new Participante(nombre,correo);
 		participantes.add(participante);
@@ -30,9 +29,8 @@ public class Controlador {
 	
 	public Proyecto crearProyecto(String nombreP, String descripcion, String fechaInicio, String fechaFinalizacion,Participante propietario) 
 	{
-		Proyecto proyecto = new Proyecto(nombreP, descripcion, fechaInicio, fechaFinalizacion, propietario);
+		proyecto = new Proyecto(nombreP, descripcion, fechaInicio, fechaFinalizacion, propietario);
 		proyecto.agregarParticipante(propietario);
-		proyectos.add(proyecto);
 		
 		return proyecto;
 	}
@@ -45,85 +43,36 @@ public class Controlador {
 		
 	}
 	
-	public void agregarParticipanteProyecto(int idProyecto, int idParticipante) {
-		Participante participante = obtenerParticipante(idParticipante);
-		Proyecto proyecto = obtenerProyecto(idProyecto);
-		proyecto.agregarParticipante(participante);
+	public void asignarTipoActividad(String[] tipo) {
+		ArrayList<TipoActividad> arrayTipos = new ArrayList<>();
+		for (String tipoA: tipo) {
+			TipoActividad tipoActividad = new TipoActividad();
+			tipoActividad.setNombreTipoActividad(tipoA);
+			tipoActividad.setProyecto(proyecto);
+			arrayTipos.add(tipoActividad);
+		}
+		proyecto.setTipoActividades(arrayTipos);
 	}
 
-    //Atributos
-    //private ArrayList<Proyecto> proyectos;
-    private Proyecto proyecto;
-    //private ArrayList<Participante> participantes;
-    private Cronometro timer = new Cronometro();
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
 
-    public Controlador() {
-        this.proyecto = new Proyecto();
-    }
+	public ArrayList<Participante> getParticipantes() {
+		return participantes;
+	}
 
-    //Todas estas funciones sirven como mediador entre la consola y la lï¿½gica. Esto es para un menor acoplamiento
-
-
-    //Este mï¿½todo crea un participante, a partir de los parï¿½metros nombre y correo. Y lo aï¿½ade a la vez a una lista de participantes.
-    public Participante crearParticipante(String nombre, String correo) {
-        Participante participante = new Participante(nombre, correo);
-        proyecto.getParticipantes().add(participante);
-        return participante;
-    }
-
-    //Este mï¿½todo crea un proyecto, a partir de los parï¿½metros. Y lo aï¿½ade a la vez a una lista de proyectos.
-    //Ademï¿½s, se le asigna actumï¿½ticamente el participante propietario del proyecto y se agrega a la lista de participantes.
-    /*public Proyecto crearProyecto(String nombreP, String descripcion, String fechaInicio, String fechaFinalizacion, Participante propietario) {
-        Proyecto proyecto = new Proyecto(nombreP, descripcion, fechaInicio, fechaFinalizacion, propietario);
-        proyecto.agregarParticipante(propietario);
-        proyectos.add(proyecto);
-
-        return proyecto;
-    }*/
-
-    public Proyecto crearProyecto(String nombreP, String descripcion, String fechaInicio, String fechaFinalizacion) {
-        Proyecto proyecto = new Proyecto(nombreP, descripcion, fechaInicio, fechaFinalizacion);
-        return proyecto;
-    }
-
-
-    //Este mï¿½todo crea una actividad, a partir de los parï¿½metros. Y lo aï¿½ade a la vez a una lista de actividades en el proyecto.
-    public Actividad crearActividad(String titulo, String descripcion, TipoActividad tipo, String fecharealizacion, String horainicio, String horafin, Participante participante) {
-        Actividad actividad = new Actividad(titulo, descripcion, tipo, fecharealizacion, horainicio, horafin, participante);
-        proyecto.agregarActividad(actividad);
-        return actividad;
-
-    }
-
-
-    //Getters and Setters
-
-    public Participante obtenerParticipante(int idParticipante) {
-        return proyecto.getParticipantes().get(idParticipante - 1);
-    }
-
-   public Proyecto obtenerProyecto() {
-        return proyecto;
-    }
-
-    public void startCronometro() {
-        timer.startTime();
-    }
-
-    public int getTiempo() {
-        return timer.tiempoEnMins();
-    }
-
-    public Proyecto getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
+	public void setParticipantes(ArrayList<Participante> participantes) {
+		this.participantes = participantes;
+	}
+	public void startCronometro() {
+		timer.startTime();
+	}
 	public void stopCronometro() {
 		timer.stopTime();
+	}
+	public int getTiempo() {
+		return timer.tiempoEnMins();
 	}
 
 }

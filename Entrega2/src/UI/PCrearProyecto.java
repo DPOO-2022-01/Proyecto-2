@@ -1,6 +1,9 @@
 package UI;
 
 import javax.swing.*;
+
+import Logic.Participante;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -159,9 +162,14 @@ public class PCrearProyecto extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+            	//TODO
             	String[] tiposAct = tiposActividad.getText().split(",");
-            	padre.getControlador().crearProyecto(nombreProyecto.getText(), descripcionProyecto.getText(), fechaProyecto.getText(), "");
+            	Participante participante = new Participante(padre.getNombreParticipante(), padre.getEmailParticipante());
+            	padre.getControlador().crearProyecto(nombreProyecto.getText(), descripcionProyecto.getText(), fechaProyecto.getText(), "", participante);
             	padre.getControlador().getProyecto();
+            	padre.getControlador().asignarTipoActividad(tiposAct);
+				setVisible(false);
+				padre.begin();
             }
 
         });

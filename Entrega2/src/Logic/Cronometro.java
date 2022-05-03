@@ -85,31 +85,8 @@ public class Cronometro {
 
     public void startTime() {
         cronometro.start();
-        //Inicia el tiempo apenas se llama y da las opciones para pausar, reanudar y terminar
-        try {
-            int opcion;
-            do {
-                System.out.println("1. Pausar\n2. Reanudar\n3. Terminar actividad");
-                opcion = Integer.parseInt(this.br.readLine());
-                if (opcion == 1) {
-                    cronometro.stop();
-                    System.out.println("Han transcurrido: " + this.getTiempo());
-                }
-                if (opcion == 2) {
-                    cronometro.start();
-                }
-                if (opcion == 3) {
-                    cronometro.stop();
-                    System.out.println("El tiempo de la actividad es: " + this.getTiempo());
-                    opcion = 0;
-
-                }
-            } while (opcion != 0);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
     }
-
+    
     public int tiempoEnMins() {
         String[] separado = this.tiempo.split(":");
         int horas_a_mins = Integer.parseInt(separado[0]) * 60;
@@ -127,5 +104,10 @@ public class Cronometro {
         setSegundos(0);
         return todoMinutos;
     }
+
+	public void stopTime() {
+		cronometro.stop();
+		
+	}
 
 }

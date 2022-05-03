@@ -108,6 +108,10 @@ public class VentanaPrincipal extends JFrame {
     	return panelCuenta.getNombreParticipante();
     }
     
+    public String getEmailParticipante () {
+    	return panelCuenta.getCorreoParticipante();
+    }
+    
     public void Salida() {
     	panelCalendario.setVisible(false);
     	panelSuperior.setVisible(false);

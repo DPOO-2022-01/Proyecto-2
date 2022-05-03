@@ -25,6 +25,7 @@ import javax.swing.border.Border;
 
 import Controller.Controlador;
 import Logic.Actividad;
+import Logic.Participante;
 import Logic.Proyecto;
 import Logic.TipoActividad;
 
@@ -150,15 +151,13 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 			}
 		});
 		
-		for (Proyecto proyecto: controlador.getProyectos()) {
-			if (proyecto.getNombre().equals(framePrincipal.getNombreProyecto())) {
-				for (TipoActividad tipoAct: proyecto.getTipoActividades()) {
-					JRadioButton tiposActividad = new JRadioButton(tipoAct.getNombreTipoActividad());
-					grupoTiposActividad.add(tiposActividad);
-					panelContenidoNueva.add(tiposActividad);
-				}
-			}
+		Proyecto proyecto = controlador.getProyecto();
+		for (TipoActividad tipoAct: proyecto.getTipoActividades()) {
+			JRadioButton tiposActividad = new JRadioButton(tipoAct.getNombreTipoActividad());
+			grupoTiposActividad.add(tiposActividad);
+			panelContenidoNueva.add(tiposActividad);
 		}
+		
 		panelContenidoNueva.add(bntiniciarActividad);
 		panelNueva.setBackground(Color.LIGHT_GRAY);
 		panelNueva.add(panelContenidoNueva, BorderLayout.CENTER);
@@ -262,14 +261,26 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 				VentanaHoraFin.add(horaFin, BorderLayout.NORTH);
 				VentanaHoraFin.add(fieldHoraFin, BorderLayout.CENTER);
 				VentanaHoraFin.setVisible(true);
+				TipoActividad tipoActFinal = null;
+				for(TipoActividad tipoact: controlador.getProyecto().getTipoActividades()) {
+					if(tipoact.getNombreTipoActividad() == grupoTiposActividad.getSelection().getActionCommand()) {
+						tipoActFinal = tipoact;
+					}
+				}
+				Participante participante = null;
+				for(Participante participanteActual : controlador.getParticipantes()) {
+					if(participanteActual.getNombre() == framePrincipal.getName()){
+						participante = participanteActual;
+					}
+				}
 				controlador.crearActividad(fieldDescripcion.getText(),
 						fieldDescripcion.getText(),
-						grupoTiposActividad.getSelection().getActionCommand(),
+						tipoActFinal,
 						fieldFecha.getText(),
 						fieldHora.getText(),
 						fieldHoraFin.getText(),
-						framePrincipal.getNombreParticipante(),
-						proyecto);
+						participante,
+						controlador.getProyecto());
 			}
 		});
 		

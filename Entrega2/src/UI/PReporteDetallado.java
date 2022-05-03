@@ -35,43 +35,41 @@ public class PReporteDetallado extends JPanel {
 		Controlador controlador = framePrincipal.getControlador();
 		
 		Proyecto proyecto = controlador.getProyecto();
-			if (proyecto.getNombre().equals(framePrincipal.getNombreProyecto())) {
-				for (Participante participante: proyecto.getParticipantes()) {
-					int i = 0;
-					nombreParticipante.setText(participante.getNombre());
-					for (TipoActividad tipoAct: proyecto.getTipoActividades()) {
-						
-						if (tipoAct.getTiempoParticipantes().isEmpty()) {
-							JLabel reporteNulo = new JLabel("No hay ninguna actividad registrada");
-							reporteNulo.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 70));
-							panelTipoActividad.add(reporteNulo);
-							this.add(panelTipoActividad);
-						}
-						
-						if (i < 1 && (!tipoAct.getTiempoParticipantes().isEmpty() == false)) {
-							tituloTipoActividad.setText(tipoAct.getNombreTipoActividad());
-							tituloTipoActividad.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 40));
-							panelTipoActividad.add(tituloTipoActividad);
-							i++;
-						}			
-						
-						if(!tipoAct.getTiempoParticipantes().isEmpty() == false) {
-							ArrayList<Integer> tiemposArray = tipoAct.getTiempoParticipantes().get(nombreParticipante.getText());
-							String tiempoTotal = Integer.toString(tiemposArray.get(0));
-							String tiempoPromedio = Integer.toString(tiemposArray.get(1));
-							String tiempoDía = Integer.toString(tiemposArray.get(2));
-							
-							String[] listaTiemposMostrar = {"Tiempo Total: " + tiempoTotal,
-															"Tiempo Promedio" + tiempoPromedio,
-															"Tiempo por día: " + tiempoDía};
-							tiemposParticipante.setListData(listaTiemposMostrar);
-							
-							panelTipoActividad.add(nombreParticipante);
-							panelTipoActividad.add(tiemposParticipante);
-							this.add(panelTipoActividad);
-						}
-					}
+		for (Participante participante: proyecto.getParticipantes()) {
+			int i = 0;
+			nombreParticipante.setText(participante.getNombre());
+			for (TipoActividad tipoAct: proyecto.getTipoActividades()) {
+
+				if (tipoAct.getTiempoParticipantes().isEmpty()) {
+					JLabel reporteNulo = new JLabel("No hay ninguna actividad registrada");
+					reporteNulo.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 70));
+					panelTipoActividad.add(reporteNulo);
+					this.add(panelTipoActividad);
+				}
+
+				if (i < 1 && (!tipoAct.getTiempoParticipantes().isEmpty() == false)) {
+					tituloTipoActividad.setText(tipoAct.getNombreTipoActividad());
+					tituloTipoActividad.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 40));
+					panelTipoActividad.add(tituloTipoActividad);
+					i++;
+				}			
+
+				if(!tipoAct.getTiempoParticipantes().isEmpty() == false) {
+					ArrayList<Integer> tiemposArray = tipoAct.getTiempoParticipantes().get(nombreParticipante.getText());
+					String tiempoTotal = Integer.toString(tiemposArray.get(0));
+					String tiempoPromedio = Integer.toString(tiemposArray.get(1));
+					String tiempoDía = Integer.toString(tiemposArray.get(2));
+
+					String[] listaTiemposMostrar = {"Tiempo Total: " + tiempoTotal,
+							"Tiempo Promedio" + tiempoPromedio,
+							"Tiempo por día: " + tiempoDía};
+					tiemposParticipante.setListData(listaTiemposMostrar);
+
+					panelTipoActividad.add(nombreParticipante);
+					panelTipoActividad.add(tiemposParticipante);
+					this.add(panelTipoActividad);
 				}
 			}
 		}
+	}
 }

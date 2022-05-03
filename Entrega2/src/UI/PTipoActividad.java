@@ -9,13 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import Logic.TipoActividad;
+
 public class PTipoActividad extends JPanel{
 	
 	private JPanel panelPrincipal;
 	private JLabel nombrePrincipal;
+	private VentanaPrincipal padre;
 	
 	
-	public PTipoActividad() {
+	public PTipoActividad(VentanaPrincipal padre) {
+		this.padre = padre;
 		setLayout(new BorderLayout());
 		nombrePrincipal = new JLabel("Titulo");
 		panelPrincipal = new JPanel();
@@ -27,7 +31,13 @@ public class PTipoActividad extends JPanel{
 		panelPrincipal.setSize(this.getWidth(), this.getHeight());
 		JPanel panelSuperior = new JPanel();
 		JPanel panelContenido = new JPanel();
-		String[] tipoActividad = {"Ninguno"};
+		String[] tipoActividad =  null;
+		String todosTipos = "";
+		for(TipoActividad tipo : padre.getControlador().getProyecto().getTipoActividades()) {
+			todosTipos += tipo.getNombreTipoActividad()+",";
+		}
+		tipoActividad = todosTipos.split(",");
+		
 		JList<String> listTipoActividad = new JList<>(tipoActividad);
 		
 		panelSuperior.setLayout(new BorderLayout());
