@@ -149,28 +149,7 @@ public final class PCalendarioActividad extends JPanel {
     return label;
   }
 
-  /*public static void main(String... args) {
-    EventQueue.invokeLater(new Runnable() {
-      @Override public void run() {
-        createAndShowGui();
-      }
-    });
-  }
   
- //Este es el frame por defecto para mostrar el panel, se debe simplemente iniciarlo en FramePrincipal.
-  public static void createAndShowGui() {
-    try {
-      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-      ex.printStackTrace();
-    }
-    JFrame frame = new JFrame("CalendarHeatmapList");
-    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    frame.getContentPane().add(new PCalendarioActividad());
-    frame.pack();
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
-  }*/
 }
 
 class Contribution {

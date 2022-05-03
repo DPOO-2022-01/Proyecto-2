@@ -14,6 +14,7 @@ public class FramePrincipal extends JFrame {
 	JLabel lblTitulo;
 	PTipoActividad pTipoActividad;
 	PCalendarioActividad pCalendario;
+	PCuenta pCuenta;
 	
 	//Constructor
 	public FramePrincipal() {
@@ -32,11 +33,12 @@ public class FramePrincipal extends JFrame {
 		lblTitulo.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));
 		pCalendario = new PCalendarioActividad();
 		pTipoActividad = new PTipoActividad();
-		this.add(pCalendario, BorderLayout.CENTER);
-		//this.add(pTipoActividad, BorderLayout.CENTER);
+		pCuenta = new PCuenta();
+		//this.add(pCalendario, BorderLayout.CENTER);
+		this.add(pCuenta, BorderLayout.CENTER);
 		
-		add(botones, BorderLayout.WEST);
-		add(lblTitulo,BorderLayout.NORTH);
+		//add(botones, BorderLayout.WEST);
+		//add(lblTitulo,BorderLayout.NORTH);
 		
 		// TODO Auto-generated method stub
 		
