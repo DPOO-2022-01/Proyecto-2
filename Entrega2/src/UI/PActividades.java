@@ -15,6 +15,7 @@ import java.util.Observer;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -34,12 +35,21 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 	private FramePrincipal framePrincipal;
 	private String tiempo;
 	private Controlador controlador;
+	private JTextField fieldTitulo, fieldDescripcion, fieldFecha, fieldHora;
+	private ButtonGroup grupoTiposActividad;
 	
 	JLabel temporalTiempo = new JLabel();
 	
 	public PActividades(FramePrincipal framePrincipal) {
 		this.framePrincipal = framePrincipal;
 		this.controlador = framePrincipal.getControlador();
+		fieldTitulo = new JTextField();
+		fieldDescripcion = new JTextField();
+		fieldFecha = new JTextField();
+		fieldFecha = new JTextField();
+		fieldHora = new JTextField();
+		grupoTiposActividad = new ButtonGroup();
+		
 		setLayout(new BorderLayout());
 		nombreTitulo = new JLabel("No");
 		panelNueva = new JPanel();
@@ -85,9 +95,9 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 	public void mostrarPanelNueva() {
 		panelNueva = new JPanel();
 		JPanel panelContenidoNueva = new JPanel();
-		JTextField fieldTitulo = new JTextField();
 		JLabel ingresarTitulo = new JLabel();
 		JLabel nombrePanel = new JLabel();
+		
 		JButton bntiniciarActividad = new JButton("Iniciar Actividad");
 		JButton btnVolver = new JButton("Volver");
 		
@@ -102,20 +112,23 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 		panelContenidoNueva.add(fieldTitulo);
 		
 		JLabel ingresarDescripcion = new JLabel("Ingresa una descripción corta de la actividad");
-		JTextField fieldDescripcion = new JTextField();
 		
 		panelContenidoNueva.add(ingresarDescripcion);
 		panelContenidoNueva.add(fieldDescripcion);
 		
+		JLabel fechaActividad = new JLabel("Ingrese la fecha en la que se realiza la actividad (formato: DD/MM/AA): ");
+		
+		panelContenidoNueva.add(fechaActividad);
+		panelContenidoNueva.add(fieldFecha);
+		
+		JLabel ingresarHora = new JLabel("Ingrese la hora de comienzo: ");
+		panelContenidoNueva.add(ingresarHora);
+		panelContenidoNueva.add(fieldHora);
+		
 		JLabel escogerTipoAct = new JLabel("Escoge el tipo de actividad a realizar");
-		ButtonGroup grupoTiposActividad = new ButtonGroup();
+		grupoTiposActividad = new ButtonGroup();
 		
 		panelContenidoNueva.add(escogerTipoAct);
-		
-		
-		//For in que itere el tamaño del array de tipos de actividad, dentro de él, debe haber una variable String que cree el nombre del
-		//botón y lo añada al grupo de botones. Después de eso, que el grupo de botones se añada al panelContenido.
-		
 		
 		panelNueva.setBackground(Color.LIGHT_GRAY);
 		bntiniciarActividad.addActionListener(new ActionListener() {
@@ -164,7 +177,7 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 		JPanel panelContenidoEditar = new JPanel();
 		JLabel tituloModificar = new JLabel("Ingresa el título de la actividad a modificar");
 		JTextField fieldTituloModificar = new JTextField();
-		JLabel fechaActividad = new JLabel("Ingresa la nueva fecha en la que se realizó la actividad");
+		JLabel fechaActividad = new JLabel("Ingresa la nueva fecha en la que se realizó la actividad (formato: DD/MM/AA)");
 		JTextField fieldFechaNueva = new JTextField();
 		JLabel horaInicioFinAct = new JLabel("Indica la hora en la que se realizó la actividad (formato: HH:MM - HH:MM)");
 		JTextField fieldHoraNueva = new JTextField();
@@ -241,7 +254,23 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 			public void actionPerformed(ActionEvent e) {
 				panelCronometro.setVisible(false);
 				panelPrincipal.setVisible(true);
-				framePrincipal.getControlador().stopCronometro();
+				controlador.stopCronometro();
+				JFrame VentanaHoraFin = new JFrame();
+				VentanaHoraFin.setSize(200, 200);
+				VentanaHoraFin.setLayout(new BorderLayout());
+				JLabel horaFin = new JLabel("Ingrese la hora de finalización:");
+				JTextField fieldHoraFin = new JTextField();
+				VentanaHoraFin.add(horaFin, BorderLayout.NORTH);
+				VentanaHoraFin.add(fieldHoraFin, BorderLayout.CENTER);
+				VentanaHoraFin.setVisible(true);
+				controlador.crearActividad(fieldDescripcion.getText(),
+						fieldDescripcion.getText(),
+						grupoTiposActividad.getSelection().getActionCommand(),
+						fieldFecha.getText(),
+						fieldHora.getText(),
+						fieldHoraFin.getText(),
+						participante,
+						proyecto);
 			}
 		});
 		
@@ -293,7 +322,7 @@ public class PActividades extends JPanel implements ActionListener, Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		panelCronometro = new JPanel();
+		
 	}
 	
 	
