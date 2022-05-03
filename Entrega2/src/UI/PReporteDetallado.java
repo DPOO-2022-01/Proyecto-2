@@ -15,14 +15,16 @@ import Logic.Proyecto;
 import Logic.TipoActividad;
 
 public class PReporteDetallado extends JPanel {
-	JLabel títuloPanel;
+	JLabel tituloPanel;
 	FramePrincipal framePrincipal;
 	
 	public PReporteDetallado(FramePrincipal framePrincipal) {
 		this.framePrincipal = framePrincipal;
-		títuloPanel = new JLabel("Reporte específico de Actividades");
+		tituloPanel = new JLabel("Reporte específico de Actividades");
+		tituloPanel.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 40));
 		setLayout(new BorderLayout());
-		add(títuloPanel);
+		add(tituloPanel, BorderLayout.NORTH);
+		mostrarReporte();
 	}
 	
 	public void mostrarReporte() {

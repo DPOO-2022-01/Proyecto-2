@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Observable;
+
 import javax.naming.InitialContext;
 import javax.swing.Timer;
 
-public class Cronometro {
+public class Cronometro extends Observable{
 	private javax.swing.Timer cronometro;
 	private int centesimas_segundo = 0;
 	private int segundos = 0;
@@ -38,6 +40,7 @@ public class Cronometro {
 				minutos = 0;
 			}
 			actualizarTiempo();
+			notificar();
 		}
 	};
 	
@@ -80,30 +83,21 @@ public class Cronometro {
 		super();	
 		cronometro = new Timer(10, accion);
 	}
+	
 	public void startTime() {
 		cronometro.start();
-		//Inicia el tiempo apenas se llama y da las opciones para pausar, reanudar y terminar
-		try {
-			int opcion;
-			do {
-				System.out.println("1. Pausar\n2. Reanudar\n3. Terminar actividad");
-				opcion = Integer.parseInt(this.br.readLine());
-				if (opcion == 1) {
-					cronometro.stop();
-					System.out.println("Han transcurrido: "+this.getTiempo());
-				} if (opcion == 2) {
-					cronometro.start();
-				} if (opcion == 3) {
-					cronometro.stop();
-					System.out.println("El tiempo de la actividad es: " + this.getTiempo());
-					opcion = 0;
-					
-				}
-			} while (opcion != 0);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 	}
+	
+	public void stopTime() {
+		cronometro.stop();
+	}
+	
+	public void notificar() {
+		this.setChanged();
+		this.notifyObservers("Hola");
+		//System.out.println(tiempo);
+	}
+	
 	public int tiempoEnMins() {
 		String[] separado = this.tiempo.split(":");
 		int horas_a_mins = Integer.parseInt(separado[0])*60;
@@ -120,8 +114,5 @@ public class Cronometro {
 		setMinutos(0);
 		setSegundos(0);
 		return todoMinutos;
-	}
-	public static void main(String[] args) {
-		
 	}
 }

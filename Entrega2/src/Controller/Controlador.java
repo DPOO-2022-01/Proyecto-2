@@ -79,4 +79,8 @@ public class Controlador {
 		return timer.tiempoEnMins();
 	}
 
+	public void stopCronometro() {
+		timer.stopTime();
+	}
+
 }
