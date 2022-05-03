@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Controller.Controlador;
+import Logic.Cronometro;
 import Logic.Proyecto;
 
 public class FramePrincipal extends JFrame {
@@ -17,6 +18,8 @@ public class FramePrincipal extends JFrame {
 	private JLabel lblTitulo;
 	private Controlador controlador;
 	private String nombreProyecto;
+	private Cronometro cronometro;
+	private PActividades actividades;
 	
 	//Constructor
 	public FramePrincipal() {
@@ -26,9 +29,14 @@ public class FramePrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		setTitle("Project Manager");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		PActividades actividades = new PActividades();
+		this.cronometro = new Cronometro();
+		
+		actividades = new PActividades(this);
+		cronometro.addObserver(actividades);		
 		add(actividades, BorderLayout.CENTER);
 		
+		PReporteDetallado detallado = new PReporteDetallado(this);
+		//add(detallado, BorderLayout.CENTER);
 		//iniciarComponentes();
 		
 	}

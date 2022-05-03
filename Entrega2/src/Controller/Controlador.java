@@ -122,4 +122,8 @@ public class Controlador {
         this.proyecto = proyecto;
     }
 
+	public void stopCronometro() {
+		timer.stopTime();
+	}
+
 }

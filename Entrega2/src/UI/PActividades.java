@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -18,12 +22,24 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-public class PActividades extends JPanel implements ActionListener{
+import Controller.Controlador;
+import Logic.Actividad;
+import Logic.Proyecto;
+import Logic.TipoActividad;
+
+public class PActividades extends JPanel implements ActionListener, Observer{
 	private JPanel panelEditar, panelNueva, panelPrincipal, panelCronometro;
 	private JLabel nombreTitulo;
 	private JButton btnNueva, btnEditar;
+	private FramePrincipal framePrincipal;
+	private String tiempo;
+	private Controlador controlador;
 	
-	public PActividades() {
+	JLabel temporalTiempo = new JLabel();
+	
+	public PActividades(FramePrincipal framePrincipal) {
+		this.framePrincipal = framePrincipal;
+		this.controlador = framePrincipal.getControlador();
 		setLayout(new BorderLayout());
 		nombreTitulo = new JLabel("No");
 		panelNueva = new JPanel();
@@ -93,11 +109,14 @@ public class PActividades extends JPanel implements ActionListener{
 		
 		JLabel escogerTipoAct = new JLabel("Escoge el tipo de actividad a realizar");
 		ButtonGroup grupoTiposActividad = new ButtonGroup();
-		JRadioButton tiposActividad = new JRadioButton();
 		
 		panelContenidoNueva.add(escogerTipoAct);
+		
+		
 		//For in que itere el tamaño del array de tipos de actividad, dentro de él, debe haber una variable String que cree el nombre del
 		//botón y lo añada al grupo de botones. Después de eso, que el grupo de botones se añada al panelContenido.
+		
+		
 		panelNueva.setBackground(Color.LIGHT_GRAY);
 		bntiniciarActividad.addActionListener(new ActionListener() {
 			
@@ -118,10 +137,19 @@ public class PActividades extends JPanel implements ActionListener{
 			}
 		});
 		
+		for (Proyecto proyecto: controlador.getProyectos()) {
+			if (proyecto.getNombre().equals(framePrincipal.getNombreProyecto())) {
+				for (TipoActividad tipoAct: proyecto.getTipoActividades()) {
+					JRadioButton tiposActividad = new JRadioButton(tipoAct.getNombreTipoActividad());
+					grupoTiposActividad.add(tiposActividad);
+					panelContenidoNueva.add(tiposActividad);
+				}
+			}
+		}
 		panelContenidoNueva.add(bntiniciarActividad);
-		panelNueva.add(btnVolver, BorderLayout.SOUTH);
 		panelNueva.setBackground(Color.LIGHT_GRAY);
 		panelNueva.add(panelContenidoNueva, BorderLayout.CENTER);
+		panelNueva.add(btnVolver, BorderLayout.SOUTH);
 		this.add(panelNueva,BorderLayout.CENTER);
 	}
 	
@@ -146,7 +174,16 @@ public class PActividades extends JPanel implements ActionListener{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				for (Proyecto proyecto: controlador.getProyectos()) {
+					for(Actividad actividad: proyecto.getActividades()) {
+						if (actividad.getTitulo().equals(fieldTituloModificar.getText())) {
+							actividad.setFecharealizacion(fieldFechaNueva.getText());
+							String[] horaCompleta = fieldHoraNueva.getText().split("-");
+							actividad.setHorainicio(horaCompleta[0]);
+							actividad.setHorafin(horaCompleta[1]);
+						}
+					}
+				}
 			}
 		});
 		
@@ -175,14 +212,15 @@ public class PActividades extends JPanel implements ActionListener{
 	}
 	
 	public void MostrarpanelCronometro() {
+		
 		panelCronometro = new JPanel();
 		panelCronometro.setLayout(new BorderLayout());
 		JLabel nombrePanel = new JLabel();
 		nombrePanel.setText("Crónometro de Actividad");
-		nombrePanel.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));
+		nombrePanel.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));	
 		JLabel tiempoTrans = new JLabel("Tiempo transcurrido");
 		tiempoTrans.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));
-		JLabel temporalTiempo = new JLabel("00:00:00");
+		temporalTiempo.setText(tiempo);
 		temporalTiempo.setFont(new Font("Open Sans ExtraBold", Font.BOLD, 30));
 		
 		JButton btnPausar = new JButton("Pausar");
@@ -195,12 +233,15 @@ public class PActividades extends JPanel implements ActionListener{
 		JPanel panelBotones = new JPanel();
 		panelBotones.setLayout(new FlowLayout());
 		
+		framePrincipal.getControlador().startCronometro();
+		
 		btnTerminarActivdad.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				panelCronometro.setVisible(false);
 				panelPrincipal.setVisible(true);
+				framePrincipal.getControlador().stopCronometro();
 			}
 		});
 		
@@ -208,8 +249,7 @@ public class PActividades extends JPanel implements ActionListener{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				framePrincipal.getControlador().stopCronometro();
 			}
 		});
 		
@@ -217,8 +257,7 @@ public class PActividades extends JPanel implements ActionListener{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				framePrincipal.getControlador().startCronometro();
 			}
 		});
 		
@@ -250,6 +289,11 @@ public class PActividades extends JPanel implements ActionListener{
 			mostrarPanelEditar();
 			panelEditar.setVisible(true);
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		panelCronometro = new JPanel();
 	}
 	
 	
